@@ -1,4 +1,4 @@
-.PHONY: process_data train update_model_card upload_handler deploy delete_endpoint
+.PHONY: process_data train update_model_card upload_handler deploy inference delete_endpoint
 all: process_data train update_model_card deploy
 
 DATASET_REPO=mnist1d_1v7
@@ -25,6 +25,9 @@ deploy: upload_handler
 		--accelerator cpu --instance-type intel-spr --instance-size x1 \
 		--vendor aws --region eu-west-1 \
 		--min-replica 0 --max-replica 1 --scale-to-zero-timeout 15
+
+inference:
+	uv run inference.py
 
 delete_endpoint:
 	hf endpoints delete $(ENDPOINT) --yes
