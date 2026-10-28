@@ -1,8 +1,9 @@
-.PHONY: process_data train
-all: process_data train update_model_card
+.PHONY: all process_data train update_model_card
 
 DATASET_REPO=mnist1d_1v7
 MODEL_REPO=mnist1d_clf_1v7
+
+all: process_data train update_model_card
 
 process_data:
 	hf jobs uv run --name process-mnist1d --secrets HF_TOKEN process.py --repo-id prteek/$(DATASET_REPO)
